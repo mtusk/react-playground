@@ -8,11 +8,11 @@ import { selectApiData } from './selectors';
 
 import logo from './images/logo.svg';
 
-const getMyIp = (apiData) => (
+const getMyIp = apiData => (
   (apiData && apiData.origin) && apiData.origin.split(', ')[1]
 );
 
-export class App extends Component {
+export class AppContainer extends Component {
   componentWillMount() {
     this.props.actions.getAPIData();
   }
@@ -35,21 +35,21 @@ export class App extends Component {
   }
 }
 
-App.defaultProps = {
+AppContainer.defaultProps = {
   apiData: {},
 };
 
-App.propTypes = {
+AppContainer.propTypes = {
   actions: PropTypes.object.isRequired,
   apiData: PropTypes.object,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   apiData: selectApiData(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ getAPIData }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);

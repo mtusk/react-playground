@@ -15,10 +15,10 @@ const fetchData = (url, options) => {
   const fetchRequest = new Request(url, options);
 
   return fetch(fetchRequest)
-    .then((response) => (
-      response.json().then((result) => ({ result }))
+    .then(response => (
+      response.json().then(result => ({ result }))
     ))
-    .catch((error) => ({ error }));
+    .catch(error => ({ error }));
 };
 
 function* getApiData() {
