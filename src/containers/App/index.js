@@ -12,7 +12,7 @@ const getMyIp = apiData => (
   (apiData && apiData.origin) && apiData.origin.split(', ')[1]
 );
 
-export class AppContainer extends Component {
+class AppContainer extends Component {
   componentWillMount() {
     this.props.actions.getAPIData();
   }
