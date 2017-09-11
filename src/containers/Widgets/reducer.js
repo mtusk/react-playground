@@ -4,7 +4,7 @@ import {
   GET_WIDGETS_ERROR,
 } from './constants';
 
-const initialState = ({ // TODO refactor out into one big initial state class
+const initialState = ({
   widgets: [],
   widgetsLoading: null,
   widgetsLoaded: null,
@@ -12,31 +12,45 @@ const initialState = ({ // TODO refactor out into one big initial state class
 });
 
 const widgetsReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case GET_WIDGETS:
-      return {
-        ...state,
-        widgetsLoading: true,
-        widgetsError: null,
-      };
-    case GET_WIDGETS_LOADED:
-      return {
-        ...state,
-        widgets: action.data,
-        widgetsLoading: false,
-        widgetsLoaded: true,
-        widgetsError: null,
-      };
-    case GET_WIDGETS_ERROR:
-      return {
-        ...state,
-        widgetsLoading: false,
-        widgetsLoaded: false,
-        widgetsError: action.error,
-      };
-    default:
-      return state;
+  let reduction = state;
+
+  if (action) { // TODO I don't think I should have to do this...
+    switch (action.type) {
+      case GET_WIDGETS:
+        reduction = {
+          ...state,
+          widgetsLoading: true,
+          widgetsError: null,
+        };
+        
+        break;
+      case GET_WIDGETS_LOADED:
+        reduction = {
+          ...state,
+          widgets: action.data,
+          widgetsLoading: false,
+          widgetsLoaded: true,
+          widgetsError: null,
+        };
+
+        break;
+      case GET_WIDGETS_ERROR:
+        reduction = {
+          ...state,
+          widgetsLoading: false,
+          widgetsLoaded: false,
+          widgetsError: action.error,
+        };
+
+        break;
+      default:
+        reduction = state;
+
+        break;
+    }
   }
+
+  return reduction;
 };
 
 export default widgetsReducer;

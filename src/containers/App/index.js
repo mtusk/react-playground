@@ -1,55 +1,33 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { getAPIData } from './actions';
-import { selectApiData } from './selectors';
+export class App extends Component {
+  constructor(props, context) {
+    super(props, context);
 
-import logo from './images/logo.svg';
-
-const getMyIp = apiData => (
-  (apiData && apiData.origin) && apiData.origin.split(', ')[1]
-);
-
-class AppContainer extends Component {
-  componentWillMount() {
-    this.props.actions.getAPIData();
+    var asdf = 1234;
+    asdf = asdf + 1;
   }
 
   render() {
     return (
-      <div className="app">
-        <div className="app-header">
-          <img src={logo} className="app-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="app-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p className="app-intro">
-          Your IP is: {getMyIp(this.props.apiData)}
-        </p>
-      </div>
+      <main>
+        {/* TODO navigation bar? */ }
+        {this.props.children }
+        {/* TODO loading indicator? */ }
+        {/* TODO authorization UI? */ }
+      </main>
     );
   }
 }
 
-AppContainer.defaultProps = {
-  apiData: {},
+App.propTypes = {
+  children: PropTypes.element,
 };
 
-AppContainer.propTypes = {
-  actions: PropTypes.object.isRequired,
-  apiData: PropTypes.object,
+App.defaultProps = {
+  children: null,
 };
 
-const mapStateToProps = state => ({
-  apiData: selectApiData(state),
-});
-
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ getAPIData }, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
+export default connect()(App);

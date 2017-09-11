@@ -1,19 +1,15 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import { ConnectedRouter } from 'react-router-redux';
+import { Route, IndexRoute } from 'react-router';
 
-import { history } from './store';
-
-import App from './containers/App';
+import Home from './components/Home';
+import { App } from './containers/App';
 import Widgets from './containers/Widgets';
 
 const routes = (
-  <ConnectedRouter history={history}>
-    <Switch>
-      <Route exact path="/" component={App} />
-      <Route exact path="/widgets" component={Widgets} />
-      {/* NOTE: put other app routes here */}
-    </Switch>
-  </ConnectedRouter>
+  <Route path="/" component={App}>
+    <IndexRoute component={Home} />
+    <Route path="/widgets" component={Widgets} />
+  </Route>
 );
+
 export default routes;

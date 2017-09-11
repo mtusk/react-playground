@@ -7,7 +7,7 @@ import { getWidgets } from './actions';
 import { selectWidgets } from './selectors';
 import Widgets from '../../components/Widgets';
 
-class WidgetsContainer extends Component {
+export class WidgetsContainer extends Component {
   componentWillMount() {
     this.props.actions.getWidgets();
   }
